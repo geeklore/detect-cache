@@ -1,16 +1,12 @@
 <?php
-// Check the headers for any clues to caching and proxies. Also check the plugins and filesystem 
+// Check the headers for any clues as to caching and proxies. 
+// Also check the plugins and filesystem 
 // for anything that might indicate caching.
 
-
-// Center stuff  - add css later
-echo "<div align=center>";
+echo "<div class=wrap>";
 echo "<h1> Detect Cache </h1>";
 
-// Grab the URL of this install of WordPress
 $url = site_url();
-//print_r(get_headers($url));
-
 
 echo "<h3> Detecting Cache In Headers </h3>";
 
@@ -55,7 +51,7 @@ foreach ($header as $key=>$value) {
 }
 
 // Did we find any headers with "cache" in the name? If not, say so.
-if ($header_cache_found = '0'){
+if ($header_cache_found == '0'){
 	echo "No Caching detected in headers";
 }
 
@@ -65,7 +61,8 @@ echo "<h3> Detecting Cache Via Local FileSystem </h3>";
 // Get the path, set the directory to include wp-content and put
 // the values of scandir into $cache_files
 $path = get_home_path();
-$dir = "$path/wp-content";
+$targetdir = "wp-content";
+$dir = "$path$targetdir";
 $cache_files = scandir($dir);
 
 // filesystem_cache_found is set to 0 so we can display a not found message if set to 0
@@ -74,17 +71,14 @@ foreach ($cache_files as $key=>$value) {
     if (stripos($value, "cache") !== false) {
     	echo "Possible caching diectory detected";
     	echo "<br>";
-    	echo "Line : $key: <b>$value</b>";
+    	echo "Directory located: <b>$path$targetdir/$value</b>";
     	$filesystem_cache_found = '1';
     }
 }
 // Did we find any folders with "cache" in the name? If not, say so.
-if ($filesystem_cache_found = '0'){
+if ($filesystem_cache_found == '0'){
 	echo "No Caching folders found in the wp-content directory";
 }
-
-
-
 
 echo "<h3> Looking for possible caching plugins </h3>";
 
@@ -94,7 +88,7 @@ $all_active_plugins = wp_get_active_and_valid_plugins();
 /// plugin_cache_found set to 0 so we can display a not found message if 0
 $plugin_cache_found = '0';
 foreach ($all_active_plugins as $key=>$value) {
-    if (stripos($value, "cache") !== false) {
+    if( (stripos($value, "cache") !== false) && (stripos($value, "detect-cache") == false)) {
     	echo "Possible caching plugin detected";
     	echo "<br>";
     	//
@@ -105,10 +99,10 @@ foreach ($all_active_plugins as $key=>$value) {
     }
 }
 
-// Did we find any plugins with "cache" in the name? If not, say so.
-if ($plugin_cache_found = '0'){
+
+if($plugin_cache_found == '0') {
 	echo "No Caching plugins were found";
 }
 
-// Closing center div
+
 echo "</div>";
