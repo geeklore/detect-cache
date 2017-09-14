@@ -62,22 +62,28 @@ if ($header_cache_found = '0'){
 
 echo "<h3> Detecting Cache Via Local FileSystem </h3>";
 
+// Get the path, set the directory to include wp-content and put
+// the values of scandir into $cache_files
+$path = get_home_path();
+$dir = "$path/wp-content";
+$cache_files = scandir($dir);
 
-// $path = get_home_path();
-// echo "$path";
-// echo __DIR__;
-// $p = getcwd();
-//  echo $p;
+// filesystem_cache_found is set to 0 so we can display a not found message if set to 0
+$filesystem_cache_found = '0';
+foreach ($cache_files as $key=>$value) {
+    if (stripos($value, "cache") !== false) {
+    	echo "Possible caching diectory detected";
+    	echo "<br>";
+    	echo "Line : $key: <b>$value</b>";
+    	$filesystem_cache_found = '1';
+    }
+}
+// Did we find any folders with "cache" in the name? If not, say so.
+if ($filesystem_cache_found = '0'){
+	echo "No Caching folders found in the wp-content directory";
+}
 
-$test = site_url();
-echo "$test";
 
-// $dir    = '/';
-// $files1 = scandir($dir);
-// $files2 = scandir($dir, 1);
-
-// print_r($files1);
-// print_r($files2);
 
 
 echo "<h3> Looking for possible caching plugins </h3>";
@@ -101,7 +107,7 @@ foreach ($all_active_plugins as $key=>$value) {
 
 // Did we find any plugins with "cache" in the name? If not, say so.
 if ($plugin_cache_found = '0'){
-	echo "No Caching detected in Active Plugins";
+	echo "No Caching plugins were found";
 }
 
 // Closing center div
