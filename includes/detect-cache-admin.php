@@ -15,7 +15,7 @@ echo "<h1> Detect Cache </h1>";
 
 $url = site_url();
 
-echo "<h2> Looking for cache in HTTP headers </h2>";
+echo "<h2> Detecting cache in HTTP headers </h2>";
 
 /*
  * Setting this variable to 0, if set to 1 during the foreach loop
@@ -69,7 +69,7 @@ if ($header_cache_found == '0'){
 	echo "No Caching detected in headers";
 }
 
-echo "<h2> Looking for cache folders in the wp-content directory</h2>";
+echo "<h2> Detecting cache folders in the wp-content directory</h2>";
 
 // Get the path, set the directory to include wp-content and put
 // the values of scandir into $cache_files
@@ -92,12 +92,12 @@ foreach ($cache_files as $key=>$value) {
 if ($filesystem_cache_found == '0'){
 echo "
 <ul class='checkmark'>
-  <li class='tick'>No Caching folders found in the wp-content directory.</li>
+  <li class='tick'>No Caching folders detected in the wp-content directory.</li>
   </ul>
   ";
 }
 
-echo "<h2> Looking for possible caching plugins </h2>";
+echo "<h2> Detecting caching plugins </h2>";
 
 // wp_get_active_and_valid_plugins gets the active plugins, save to an empty array
 $all_active_plugins = wp_get_active_and_valid_plugins();
@@ -120,7 +120,7 @@ foreach ($all_active_plugins as $key=>$value) {
 if($plugin_cache_found == '0') {
 echo "
 <ul class='checkmark'>
-  <li class='tick'>No caching plugins were found.</li>
+  <li class='tick'>No caching plugins were detected.</li>
   </ul>
   ";
 }
