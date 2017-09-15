@@ -5,9 +5,13 @@
  * 1. Plugin checks the site's (using site_url()) HTTP headers for caching directives, 
  * Load Balancers, proxies and proxy services like CloudFlare.
  * 2. Plugin also checks active plugins for any that have the word cache in them.
- * 3. Plugin checks the /wp-content/ directory for directories with the name cache in 
- * them as this may indicate caching was present and might be persistent.
+ * 3. Plugin checks the /wp-content/ directory for directories with the name cache in.
  *
+ * TODO
+ * 1. Plugin cache - get just the name, not the path to php file.
+ * 2. I18n
+ * 3. Clean up foreach so that it uses if (not ifelse) statements and stores results in an array.
+ * 4. 
  */
 
 echo "<div class=wrap>";
