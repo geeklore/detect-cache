@@ -31,87 +31,16 @@ add_action( 'admin_menu', 'detect_cache_page' );
 
 
 /*
- * my_custom_fonts
+ * admin_style
  *
  * Adds some font styles to the plugin admin page.
+ * The detect-cache-admin.css file must be placed in the root
+ * of the current theme's folder.
  *
  */
 
-function my_custom_fonts() {
-  echo "<style>
-
-    body, td, textarea, input, select {
-      font-family: 'verdana';
-      font-size: 13px;
-      color: #96588a;
-    } 
-	.cacheDetected {
-    color: #3c3c3c;
-    font-family: verdana;
-    font-size: 14px;
-    font-weight: 600;
-     }
-	.cacheAlert {
-    color: #1a66ff;
-    font-family: verdana;
-    font-size: 14px;
-    font-weight: 600;
-     }
-	.cacheFont {
-    color: #3c3c3c;
-    font-family: verdana;
-    font-size: 14px;
-    font-weight: 100;
-    font-style: italic;
-     }
-	h1 {
-    color: #96588a;
-    font-family: verdana;
-    font-size: 18px;
-    font-weight: 100;
-	}
-	h2 {
-    color: #96588a;
-	}
-ul.checkmark li {
-  font-size: 16px; 
-  list-style-type: none;
-  margin-bottom: 1em; 
-  padding: 0.25em 0 0 2.5em; 
-  position: relative; 
+// Update CSS within in Admin
+function admin_style() {
+  wp_enqueue_style('admin-styles', get_template_directory_uri().'/detect-cache-admin.css');
 }
-
-ul.checkmark li:before {
-  content: \" \"; 
-  display: block;
-  border: solid 0.8em #71b02f; 
-  border-radius: .8em; 
-  height: 0;
-  width: 0;
-  position: absolute; 
-  left: 0.5em;
-  top: 40%; 
-  margin-top: -0.5em;
-}
-
-ul.checkmark li:after {
-  content: \" \";
-  display: block;
-  width: 0.3em; 
-  height: 0.6em;
-  border: solid white;
-  border-width: 0 0.2em 0.2em 0;
-  position: absolute;
-  left: 1em;
-  top: 40%;
-  margin-top: -0.2em;
-  -webkit-transform: rotate(45deg); 
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
- </style>";
-}
-
-add_action('admin_head', 'my_custom_fonts');
+add_action('admin_enqueue_scripts', 'admin_style');
