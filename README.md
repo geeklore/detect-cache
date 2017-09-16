@@ -9,4 +9,3 @@ Plugin checks for caching in three ways.
 
 If you want the pretty styles for the Admin page, install `detect-cache-admin.css` in your theme's root folder.
 
-![Detect-Cache](http://cld.wthms.co/5E5qjG)
