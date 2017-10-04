@@ -56,11 +56,11 @@ add_action( 'admin_menu', 'detect_cache_page' );
  */
 function buildCachePage(){
 printf("<div class=wrap>");
-printf("<h1> Detect Cache </h1>");
+  _e( '<h1> Detect Cache </h1>', 'detect-cache' );
 
 $url = site_url();
 
-printf("<h2> Detecting cache in HTTP headers </h2>");
+  _e( '<h2> Detecting cache in HTTP headers</h2>', 'detect-cache' );
 
 /*
  * Setting this variable to 0, if set to 1 during the foreach loop
@@ -85,7 +85,6 @@ foreach ($header as $key=>$value) {
       _e( 'in header.', 'detect-cache' );
       printf("</span><br>");
     	printf("<span class='cacheFont'>");
-      //: <b>$value</b></span><br>");
       printf(
        __( 'Line: %s <b>%s</b>', 'detect-cache'), $key,$value   
       );
@@ -93,23 +92,63 @@ foreach ($header as $key=>$value) {
       $header_cache_found = '1';
 // Is CloudFlare invoved?
     }elseif (stripos($value, "cloudflare") !== false) {
-    	printf("<span class='cacheDetected'>CloudFlare</span> <span class='cacheAlert'>detected</span><br>");
-    	printf("<span class='cacheFont'><b>$value</b>");
+      printf("<span class='cacheDetected'>");
+      _e( 'CloudFlare', 'detect-cache' );
+      printf("<span class='cacheAlert'>");
+      _e( ' detected', 'detect-cache' );
+      printf("</span> ");
+      _e( 'in header.', 'detect-cache' );
+      printf("</span><br>");
+      printf("<span class='cacheFont'>");
+      printf(
+       __( '<b>%s</b>', 'detect-cache'), $value   
+      );
+      printf("</span><br>");
       	$header_cache_found = '1';
 // Is there a Proxy involved?
     }elseif (stripos($value, "proxy") !== false) {
-    	printf("<span class='cacheDetected'>Proxy</span> <span class='cacheAlert'>detected</span><br>");
-    	printf("<span class='cacheFont'>$value</span>");
+      printf("<span class='cacheDetected'>");
+      _e( 'Proxy', 'detect-cache' );
+      printf("<span class='cacheAlert'>");
+      _e( ' detected', 'detect-cache' );
+      printf("</span> ");
+      _e( 'in header.', 'detect-cache' );
+      printf("</span><br>");
+      printf("<span class='cacheFont'>");
+      printf(
+       __( '<b>%s</b>', 'detect-cache'), $value   
+      );
+      printf("</span><br>");
       	$header_cache_found = '1';
 // Is there a Varnish server involved?
     }elseif (stripos($value, "varnish") !== false) {
-    	printf("<span class='cacheDetected'>Varnish Reverse Proxy</span> <span class='cacheAlert'>detected</span></span><br>");
-    	printf("<span class='cacheFont'>$value</span>");
+      printf("<span class='cacheDetected'>");
+      _e( 'Varnish Reverse Proxy', 'detect-cache' );
+      printf("<span class='cacheAlert'>");
+      _e( ' detected', 'detect-cache' );
+      printf("</span> ");
+      _e( 'in header.', 'detect-cache' );
+      printf("</span><br>");
+      printf("<span class='cacheFont'>");
+      printf(
+       __( '<b>%s</b>', 'detect-cache'), $value   
+      );
+      printf("</span><br>");
       	$header_cache_found = '1';
 // Is there actualy Cache-Control set? - would be nice to check for the time and print.
     }elseif (stripos($value, "Cache-Control") !== false) {
-    	printf("<span class='cacheDetected'>Cache-Control</span> <span class='cacheAlert'>detected</span><br>");
-    	printf("<span class='cacheFont'>$value</span>");
+      printf("<span class='cacheDetected'>");
+      _e( 'Cache-Control', 'detect-cache' );
+      printf("<span class='cacheAlert'>");
+      _e( ' detected', 'detect-cache' );
+      printf("</span> ");
+      _e( 'in header.', 'detect-cache' );
+      printf("</span><br>");
+      printf("<span class='cacheFont'>");
+      printf(
+       __( '<b>%s</b>', 'detect-cache'), $value   
+      );
+      printf("</span><br>");
       	$header_cache_found = '1';
 	} 
 }
@@ -117,10 +156,10 @@ foreach ($header as $key=>$value) {
 
 // Did we find any headers with "cache" in the name? If not, say so.
 if ($header_cache_found == '0'){
-	printf("No Caching detected in headers");
+    _e( 'No Caching detected in headers', 'detect-cache' );
 }
 
-printf("<h2> Detecting cache folders in the wp-content directory</h2>");
+    _e( '<h2> Detecting cache folders in the wp-content directory</h2>', 'detect-cache' );
 
 // Get the path, set the directory to include wp-content and put
 // the values of scandir into $cache_files
