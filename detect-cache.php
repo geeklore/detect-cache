@@ -77,7 +77,7 @@ $header = get_headers($url);
 foreach ($header as $key=>$value) {
 // Is there X-Cache?
     if (stripos($value, "cache") !== false) {
-    	printf("<span class='cacheDetected'>X-Cache directive <span class='cacheAlert'>detected</span> in header.</span><br>");
+    	printf("<span class='cacheDetected'>__('X-Cache directive', 'detect-cache') <span class='cacheAlert'>detected</span> in header.</span><br>");
     	printf("<span class='cacheFont'>Line : $key: <b>$value</b></span><br>");
       	$header_cache_found = '1';
 // Is CloudFlare invoved?
