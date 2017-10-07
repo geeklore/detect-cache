@@ -10,15 +10,6 @@ Domain Path: /languages/
 
 
 /*
- * I18n
- */
-
-// function load_plugin_textdomain() {
-//   load_plugin_textdomain( 'detect-cache', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-// }
-// add_action( 'plugins_loaded', 'load_plugin_textdomain' );
-
-/*
  * detect_cache_page
  *
  * Adds the Detect Cache plugin menu page to the sidebar and is used by add_action
@@ -38,7 +29,6 @@ function detect_cache_page() {
 }
 
 add_action( 'admin_menu', 'detect_cache_page' );
-
 
 
 /*
@@ -228,9 +218,14 @@ foreach ($all_active_plugins as $key=>$value) {
 if($plugin_cache_found == '0') {
 printf("
 <ul class='checkmark'>
-  <li class='tick'>No caching plugins were detected.</li>
+  <li class='tick'>
+  ");
+      _e( ' No caching plugins were detected. ', 'detect-cache' );
+printf("
+</li>
   </ul>
   ");
+
 }
 printf("</div>");
 }
