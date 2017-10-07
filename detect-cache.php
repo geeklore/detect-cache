@@ -84,7 +84,7 @@ foreach ($header as $key=>$value) {
       printf("</span> ");
       _e( 'in header.', 'detect-cache' );
       printf("</span><br>");
-    	printf("<span class='cacheFont'>");
+      printf("<span class='cacheFont'>");
       printf(
        __( 'Line: %s <b>%s</b>', 'detect-cache'), $key,$value   
       );
@@ -104,7 +104,7 @@ foreach ($header as $key=>$value) {
        __( '<b>%s</b>', 'detect-cache'), $value   
       );
       printf("</span><br>");
-      	$header_cache_found = '1';
+        $header_cache_found = '1';
 // Is there a Proxy involved?
     }elseif (stripos($value, "proxy") !== false) {
       printf("<span class='cacheDetected'>");
@@ -119,7 +119,7 @@ foreach ($header as $key=>$value) {
        __( '<b>%s</b>', 'detect-cache'), $value   
       );
       printf("</span><br>");
-      	$header_cache_found = '1';
+        $header_cache_found = '1';
 // Is there a Varnish server involved?
     }elseif (stripos($value, "varnish") !== false) {
       printf("<span class='cacheDetected'>");
@@ -134,7 +134,7 @@ foreach ($header as $key=>$value) {
        __( '<b>%s</b>', 'detect-cache'), $value   
       );
       printf("</span><br>");
-      	$header_cache_found = '1';
+        $header_cache_found = '1';
 // Is there actualy Cache-Control set? - would be nice to check for the time and print.
     }elseif (stripos($value, "Cache-Control") !== false) {
       printf("<span class='cacheDetected'>");
@@ -149,8 +149,8 @@ foreach ($header as $key=>$value) {
        __( '<b>%s</b>', 'detect-cache'), $value   
       );
       printf("</span><br>");
-      	$header_cache_found = '1';
-	} 
+        $header_cache_found = '1';
+  } 
 }
 
 
@@ -172,21 +172,35 @@ $cache_files = scandir($dir);
 $filesystem_cache_found = '0';
 foreach ($cache_files as $key=>$value) {
     if (stripos($value, "cache") !== false) {
-    	printf("<span class='cacheDetected'>Possible caching directory</span> <span class='cacheAlert'>detected</span><br>");
-    	printf("<span class='cacheFont'>Directory located: <b>$path$targetdir/$value</b></span>");
-    	$filesystem_cache_found = '1';
+      printf("<span class='cacheDetected'>");
+      _e( ' Possible caching directory', 'detect-cache' );
+      printf("</span> <span class='cacheAlert'>");
+      _e( ' detected', 'detect-cache' );
+      printf("</span><br>");
+      printf("<span class='cacheFont'>");
+      _e( ' Possible caching directory', 'detect-cache' );
+      printf(
+       __( 'Directory located: <b>%s%s/%s</b>', 'detect-cache'), $path, $targetdir, $value 
+      );
+      printf("</span>");
+      $filesystem_cache_found = '1';
     }
 }
 // Did we find any folders with "cache" in the name? If not, say so.
 if ($filesystem_cache_found == '0'){
 printf("
 <ul class='checkmark'>
-  <li class='tick'>No Caching folders detected in the wp-content directory.</li>
+  <li class='tick'>
+  ");
+_e( ' No Caching folders detected in the wp-content directory. ', 'detect-cache' );
+printf("
+</li>
   </ul>
   ");
 }
 
-printf("<h2> Detecting caching plugins </h2>");
+
+_e( ' <h2> Detecting caching plugins </h2> ', 'detect-cache' );
 
 // wp_get_active_and_valid_plugins gets the active plugins, save to an empty array
 $all_active_plugins = wp_get_active_and_valid_plugins();
@@ -195,25 +209,21 @@ $all_active_plugins = wp_get_active_and_valid_plugins();
 $plugin_cache_found = '0';
 foreach ($all_active_plugins as $key=>$value) {
     if( (stripos($value, "cache") !== false) && (stripos($value, "detect-cache") == false)) {
-    	printf("<span class=cacheDetected>Caching or cache related plugin</span> <span class='cacheAlert'>detected</span><br>");
-    	//
-    	// Would like to show just the name instead of the path to php file
-    	//
-    	printf("<b>$value</b>");
-    	$plugin_cache_found = '1';
+      printf("<span class=cacheDetected>");
+      _e( ' Caching or cache related plugin ', 'detect-cache' );
+      printf("</span> <span class='cacheAlert'>");
+      _e( ' detected ', 'detect-cache' );
+      printf("</span><br>");
+      //
+      // Would like to show just the name instead of the path to php file
+      //
+      printf(
+       __( '<b>%s</b>', 'detect-cache'), $value 
+      );
+      $plugin_cache_found = '1';
     }
 }
 
-
-// $plugs = get_plugins();
-// foreach ($plugs as $key=>$value) {
-// $splugs = get_option( active_plugins );
-// print_r($splugs);
-// }
-
-      // $key2 = 13;
-      // $value2 = $all_active_plugins[$key2];
-      // printf($value2);
 
 if($plugin_cache_found == '0') {
 printf("
@@ -222,7 +232,6 @@ printf("
   </ul>
   ");
 }
-
 printf("</div>");
 }
 
